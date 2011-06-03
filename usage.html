@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>jFormValidator</title>
+<script src="jquery-1.6.1.min.js"></script>
+<script src="jformvalidator.js"></script>
+<style>
+
+	body { 
+	
+		font: 11px verdana;
+		color: #393939;
+		margin: 0px;
+		padding: 0px;
+		padding-bottom: 25px;
+	
+	}
+	
+	p { 
+	
+		margin-left: 25px;
+		margin-right: 25px;
+		text-align: justify;
+	}
+	
+	.container { 
+	
+		border: 1px solid #cfcfcf;
+		display: table;
+		margin: 0px auto;
+		width: 800px;
+		
+	}
+	
+	.container .title { 
+		
+		background-color: #cfcfcf;
+		font: bold 14px Helvetica;
+		padding: 10px 20px 10px 50px;
+		width: 25%;
+		
+	}
+	
+	.code { 
+	
+		width: 90%;
+		background-color: #e7e7e7;
+		padding: 10px;
+		margin: 0px auto;
+		font: 11px tahoma;
+		border: 1px solid #e1e1e1;
+	}
+	
+
+</style>
+
+</head>
+<body>
+	<div class="container">
+		<h2 align="center">jFormValidator</h2>
+		<div class="title">Basic Usage</div>
+		<p>
+			All you gotta do for the plugin to work is add jQuery and jformvalidator.js to your code.
+		</p>	
+		<div class="code">
+			
+<pre>&lt;script src="jquery-1.6.1.min.js"&gt;&lt;/script&gt;
+&lt;script src="jformvalidator.js"&gt;&lt;/script&gt;</pre>
+			
+		</div>
+		
+		<p>
+			After that, you can turn a normal field into a validating field just by adding an attribute named 'validate'
+			to the input tag you want to be validated, and set the value of that attribute to the type of validation
+			you need. Just like that: 
+		</p>	
+		<div class="code">
+			
+<pre>&lt;input name="name" size="8" validate="text"&gt;</pre>		
+			
+		</div>
+		<p>
+			So that that field will be validated  as 'text', i.e., it will use the 'text' validating function 
+			and will call the 'text' fail handlers.
+		</p>
+		<div class="title">Advanced Usage</div>
+		
+		<p>
+			You can customize the validate function and the fail handler defined for each validation type(text, number),
+			and even create brand new ones, according to your neccessity.
+		
+		</p>
+		
+		<p>To make that, you have to edit the <i>jformvalidator.js</i> file. For example, to set a default fail handler,
+		edit that piece of code:
+		</p>
+		<div class="code">
+			<pre>
+var defaultFailHandler = function (el) { 
+
+	oldborder = el.css('border');		
+	//This is the default fail handler, it will be applied to every validating fail input
+	el.css('border', '1px solid red');
+	el.focus();
+	setTimeout(function () { el.css('border', oldborder) }, 5000);		                    
+}
+</pre>
+			
+		</div>
+		<p>
+			Thats the default fail handler. It will be called whenever a validation fails, whatever is 
+			the validating type you're using.The 'el' object passed to the function is the jQuery object 
+			that represents the input field that failed the validation.	
+		</p>
+		<p>
+			Here, we receive the el input object which failed the validation, set the 'oldborder' variable to hold its 
+			original border styling, set its border to red, and after 5 seconds we set the input border property back to 
+			its original value.  	
+		</p>
+		<p>
+			So if you want to, say, raise an alert message whenever the validation fails, have that function changed to something like 
+		</p>
+		<div class="code">
+<pre>
+var defaultFailHandler = function (el) { 
+
+	alert('Invalid value')
+	el.focus();
+}
+</pre>
+		</div>
+		
+		<p>
+			Addionaly to the global fail handler, you can also set another fail handler for each validation type. 
+			That's the 'manual' fail handler, and it will be applied to a specific validtion type.
+			The scrips calls the manual fail handler after calling the default fail handler(if any of these are not 
+			properly defined, then it will not be fired). You could, for example, set an custom event to be fired
+			when a 'number' validation fails. To achieve that, edit the type definitions directly:  
+		</p>
+		<div class="code">		
+<pre>
+{ 
+	'Name': 'text',  
+	'defaultFailHandler': defaultFailHandler,
+	'manualFailHandler': function (el) { 
+		//Here, we insert a span node after each field when its validation fails.
+		$(&quot;&lt;br&gt;&lt;span style='color: red; font-size: 10px'&gt;This field is required.&lt;/span&gt;&quot;)
+		.insertAfter(el);
+	}, 
+	'validateFunction': function (str) { 
+		if (str &amp;&amp; typeof(str) == 'string') { 
+			return true;
+		} else { 
+			return false;		
+		}
+	}
+},
+</pre>
+		</div>	
+	</div>
+</body>
+</html>

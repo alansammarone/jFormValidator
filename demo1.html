@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>jFormValidator</title>
+<script src="jquery-1.6.1.min.js"></script>
+<script src="jformvalidator.js"></script>
+<style>
+
+	body { 
+	
+		font: 12px verdana;
+		color: #393939;
+		margin: 0px;
+		padding: 0px;
+	
+	}
+	
+	#container { 
+	
+		padding: 20px;
+		border: 1px solid #cfcfcf;
+		display: table;
+		margin: 0px auto;
+		
+	}
+	
+	input { 
+	
+		border: 1px solid #7c7c7c;
+		
+	}
+
+</style>
+
+</head>
+<body>
+	<div id="container">
+		<div style="background-color: #cfcfcf; font-weight: bold;padding: 5px;">jFormValidator Demo</div><br />
+		<form>
+			<table cellpadding="5" cellspacing="5">
+				
+				
+				<tr>
+					<td>
+						<label>Name:</label>
+					
+					</td>		
+					<td>
+						<input type="text" name="name" size="50" validate="text" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Company:</label>
+					
+					</td>		
+					<td>
+						<input type="text" name="company" size="25" validate="text" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Age: </label>
+					
+					</td>		
+					<td>
+						<input type="text" name="phone" size="20" validate="number" />
+					</td>
+				</tr>		
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value="enviar" />
+						<input type="reset" value="limpar"/>
+					</td>
+				
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
